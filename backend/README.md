@@ -13,6 +13,7 @@ git clone https://github.com/EdwardOmondi/stkpushtest.git
 ```
 2. Update the application.properties file in the src/main/resources directory with your Mpesa and Postgres configuration
 ```
+mpesa.oauth.url=https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials
 mpesa.stkpush.url=https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest
 mpesa.consumer.key=[YOU_CONSUMER_KEY]
 mpesa.consumer.secret=[YOUR_CONSUMER_SECRET]
