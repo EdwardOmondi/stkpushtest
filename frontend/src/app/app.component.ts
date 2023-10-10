@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AppService } from './app.service';
+import { Content } from './models';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   stkForm = new FormGroup({
     phonenumber: new FormControl('', [
       Validators.required,
@@ -18,16 +19,23 @@ export class AppComponent {
   errorMessage: string = '';
   loading: boolean = false;
   successMessage: string = '';
+  transactions!: Content[];
 
   constructor(private service: AppService) {}
+  ngOnInit(): void {
+    this.getTransactions();
+  }
+  getTransactions() {
+    this.service.getTransactions().subscribe((response) => {
+      this.transactions = response.content;
+      console.log('transactions', this.transactions);
+    });
+  }
 
   submitForm() {
     this.loading = true;
     this.service.submitForm(this.stkForm.value).subscribe(async (response) => {
       this.loading = false;
-      console.log("response",response);
-      console.log("response.CustomerMessage",response.CustomerMessage);
-
       if (response.ResponseCode !== '0') {
         this.errorMessage = response.errorMessage
           ? response.errorMessage
@@ -38,6 +46,7 @@ export class AppComponent {
         this.successMessage = response.CustomerMessage;
         await this.delay(4000);
         this.successMessage = '';
+        this.getTransactions();
       }
     });
   }

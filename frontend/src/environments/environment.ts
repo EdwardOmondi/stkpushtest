@@ -9,6 +9,7 @@ export const environment = {
     test: `/`,
     stkpushApi: `/api/push`,
     stkCallbackApi: `/api/callback`,
+    transactions: `/api/transactions`,
   },
 };
 

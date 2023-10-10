@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Pageable, StkPushResponse } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,23 @@ export class AppService {
 
   constructor(private http: HttpClient) {}
 
-  submitForm(body: any): Observable<StkPushResponse> {
+  submitForm(
+    body: Partial<{ phonenumber: string | null; callbackUrl: string | null }>
+  ): Observable<StkPushResponse> {
     const url = environment.backendUrl.base + environment.backendUrl.stkpushApi;
     return this.http
       .post<StkPushResponse>(url, body)
       .pipe(catchError(this.handleError));
   }
+
+  getTransactions(
+  ): Observable<Pageable> {
+    const url = environment.backendUrl.base + environment.backendUrl.transactions;
+    return this.http
+      .get<Pageable>(url)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
@@ -36,14 +48,4 @@ export class AppService {
       return new Error('Something bad happened; please try again later.');
     });
   }
-}
-export interface StkPushResponse {
-  MerchantRequestID: string;
-  CheckoutRequestID: string;
-  ResponseCode: string;
-  ResponseDescription: string;
-  CustomerMessage: string;
-  requestId: string;
-  errorCode: string;
-  errorMessage: string;
 }

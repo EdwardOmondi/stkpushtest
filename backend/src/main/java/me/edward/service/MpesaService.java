@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 @Service
 
@@ -157,5 +160,11 @@ public class MpesaService {
             throw new RuntimeException(error);
         }
         return transaction;
+    }
+
+    public Page<Transaction> getTransactions(Pageable pageable) {
+        Page<Transaction> result = transactionRepository.findAll(pageable);
+        logger.info("getTransactions:\nresult => " + result.getContent());
+        return result;
     }
 }

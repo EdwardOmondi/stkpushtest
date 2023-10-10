@@ -1,4 +1,4 @@
-<div class="h-screen flex justify-center items-center">
+<div class="flex justify-center items-center">
   <div class="card w-96 bg-base-100 shadow-xl">
     <div class="card-body">
       <div class="card-actions justify-start">
@@ -79,6 +79,41 @@
         </button>
       </div>
     </div>
+  </div>
+</div>
+<div class="flex justify-center items-center pt-8">
+  <div class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>createdDate</th>
+          <th>transactionDate</th>
+          <th>merchantRequestId</th>
+          <th>checkoutRequestId</th>
+          <th>resultCode</th>
+          <th>resultDesc</th>
+          <th>amount</th>
+          <th>mpesaReceiptNumber</th>
+          <th>phoneNumber</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let transaction of transactions; index as i">
+        <tr>
+          <th>{{ i + 1 }}</th>
+          <td>{{ transaction.createdDate | date:'medium'  }}</td>
+          <td>{{ transaction.transactionDate | date:'medium' }}</td>
+          <td>{{ transaction.merchantRequestId }}</td>
+          <td>{{ transaction.checkoutRequestId }}</td>
+          <td>{{ transaction.resultCode }}</td>
+          <td>{{ transaction.resultDesc }}</td>
+          <td>{{ transaction.amount | currency:'KES '}}</td>
+          <td>{{ transaction.mpesaReceiptNumber }}</td>
+          <td>{{ transaction.phoneNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 <router-outlet></router-outlet>
