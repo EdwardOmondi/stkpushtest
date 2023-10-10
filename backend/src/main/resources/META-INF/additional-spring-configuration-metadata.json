@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "mpesa.paybill",
+    "type": "java.lang.String",
+    "description": "This is the organization's shortcode (Paybill or Buygoods - A 5 to 6-digit account number) used to identify an organization and receive the transaction."
+  },
+  {
+    "name": "mpesa.callback.url",
+    "type": "java.lang.String",
+    "description": "A CallBack URL is a valid secure URL that is used to receive notifications from M-Pesa API. It is the endpoint to which the results will be sent by M-Pesa API."
+  },
+  {
+    "name": "mpesa.passkey",
+    "type": "java.lang.String",
+    "description": "A secret credential given by Mpesa for each app"
+  },
+  {
+    "name": "mpesa.consumer.secret",
+    "type": "java.lang.String",
+    "description": "A secret credential given by Mpesa for each app"
+  },
+  {
+    "name": "mpesa.consumer.key",
+    "type": "java.lang.String",
+    "description": "A secret credential given by Mpesa for each app"
+  },
+  {
+    "name": "mpesa.stkpush.url",
+    "type": "java.lang.String",
+    "description": "The endpoint to be used to send the stkpush request to safaricom"
+  },
+  {
+    "name": "mpesa.oauth.url",
+    "type": "java.lang.String",
+    "description": "The endpoint to be used to authenticate all mpesa api operations"
+  }
+]}
