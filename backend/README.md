@@ -1,6 +1,6 @@
 # Backend Setup
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes
 ### Prerequisites
 To run this application, you will need the following installed:
 1. Java Development Kit (JDK) version 17 or above
@@ -9,7 +9,7 @@ To run this application, you will need the following installed:
 ### General setup
 1. Clone the repository to your local machine:
 ```
-git clone https://projects.technovation.co.ke/git/amims.git
+git clone https://github.com/EdwardOmondi/stkpushtest.git
 ```
 2. Update the application.properties file in the src/main/resources directory with your Mpesa and Postgres configuration
 ```
