@@ -29,7 +29,6 @@ import java.util.Date;
 public class MpesaService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final TransactionRepository transactionRepository;
-    private final ConfigurationRepository configurationRepository;
     @Value("${mpesa.oauth.url}")
     private String mpesaOauthUrl;
     @Value("${mpesa.stkpush.url}")
@@ -47,7 +46,6 @@ public class MpesaService {
 
     public MpesaService(TransactionRepository transactionRepository, ConfigurationRepository configurationRepository) {
         this.transactionRepository = transactionRepository;
-        this.configurationRepository = configurationRepository;
     }
 
     private static StkCallback getStkCallback(CallbackUrlBody body) {
