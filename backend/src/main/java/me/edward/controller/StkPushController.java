@@ -1,7 +1,7 @@
 package me.edward.controller;
 
 import me.edward.dto.mpesaCallback.CallbackUrlBody;
-import me.edward.dto.PostBody;
+import me.edward.dto.PostBodyDTO;
 import me.edward.dto.StkPushResponse;
 import me.edward.model.Transaction;
 import me.edward.service.MpesaService;
@@ -23,19 +23,21 @@ public class StkPushController {
     public StkPushController(MpesaService mpesaService) {
         this.mpesaService = mpesaService;
     }
+
     @PostMapping(path = "/push")
-    ResponseEntity<StkPushResponse> stkPush(@RequestBody PostBody postBody){
-        logger.info("stkPush:\npostBody => " + postBody);
-        StkPushResponse response = mpesaService.mpesaExpress(postBody.phonenumber(), postBody.callbackUrl());
+    ResponseEntity<StkPushResponse> stkPush(@RequestBody PostBodyDTO postBodyDTO) {
+        logger.info("stkPush:\npostBodyDTO => " + postBodyDTO);
+        StkPushResponse response = mpesaService.mpesaExpress(postBodyDTO.phonenumber(), postBodyDTO.callbackUrl());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping(path = "/callback")
-    ResponseEntity<Object>  mpesaCallback(@RequestBody CallbackUrlBody body){
+    ResponseEntity<Object> mpesaCallback(@RequestBody CallbackUrlBody body) {
         logger.info("mpesaCallback:\nbody => " + body);
         Transaction response = mpesaService.saveCallback(body);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
     @GetMapping(path = "/transactions")
     ResponseEntity<Page<Transaction>> getTransactions(Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(mpesaService.getTransactions(pageable));

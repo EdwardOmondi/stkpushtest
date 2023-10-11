@@ -43,16 +43,17 @@ public class MpesaService {
     private String callbackUrl;
     @Value("${mpesa.paybill}")
     private String businessShortcode;
+    private int transactionAmount = 1;
 
     public MpesaService(TransactionRepository transactionRepository, ConfigurationRepository configurationRepository) {
         this.transactionRepository = transactionRepository;
     }
 
-    private static StkCallback getStkCallback(CallbackUrlBody body) {
+    private StkCallback getStkCallback(CallbackUrlBody body) {
         return body.getBody().getStkCallback();
     }
 
-    private static void populateTransaction(CallbackUrlBody body, Transaction transaction) {
+    private void populateTransaction(CallbackUrlBody body, Transaction transaction) {
         transaction.setMerchantRequestId(getStkCallback(body).getMerchantRequestId());
         transaction.setCheckoutRequestId(getStkCallback(body).getCheckoutRequestId());
         transaction.setResultCode(getStkCallback(body).getResultCode());
@@ -83,7 +84,7 @@ public class MpesaService {
         jsonObject.put("Password", encodedPassword);
         jsonObject.put("Timestamp", timestamp);
         jsonObject.put("TransactionType", "CustomerPayBillOnline");
-        jsonObject.put("Amount", 1);
+        jsonObject.put("Amount", transactionAmount);
         jsonObject.put("PartyA", phoneNumber);
         jsonObject.put("PartyB", businessShortcode);
         jsonObject.put("PhoneNumber", phoneNumber);
@@ -152,11 +153,11 @@ public class MpesaService {
         try {
             Transaction saveResult = transactionRepository.save(transaction);
             logger.info("saveCallback:\nsaveResult => " + saveResult);
+            return saveResult;
         } catch (Exception error) {
             logger.error("saveCallback:\nerror.getMessage() => " + error.getMessage());
             throw new RuntimeException(error);
         }
-        return transaction;
     }
 
     public Page<Transaction> getTransactions(Pageable pageable) {
