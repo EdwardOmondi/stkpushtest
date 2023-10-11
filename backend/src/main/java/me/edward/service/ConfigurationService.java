@@ -29,22 +29,21 @@ public class ConfigurationService {
             return result;
         } catch (Exception error) {
             logger.info("saveConfig:\nerror.getMessage() => " + error.getMessage());
-            error.printStackTrace();
+            throw new RuntimeException(error);
         }
-        return null;
     }
 
-    public Configuration getConfig(String configNameString) {
+    public Configuration getConfigurationByName(String configNameString) {
         Optional<Configuration> result = configurationRepository.findByName(configNameString);
         if (result.isPresent()) {
-            logger.info("getConfig:\nresult => " + result);
+            logger.info("getConfigurationByName:\nresult => " + result);
             return result.get();
         }
         return null;
     }
 
     public Configuration updateConfig(ConfigurationDTO configurationDTO) {
-        Configuration configuration = getConfig(configurationDTO.name());
+        Configuration configuration = getConfigurationByName(configurationDTO.name());
         if (configuration == null) {
             return null;
         }
@@ -57,8 +56,7 @@ public class ConfigurationService {
             return result;
         } catch (Exception error) {
             logger.info("updateConfig:\nerror.getMessage() => " + error.getMessage());
-            error.printStackTrace();
+            throw new RuntimeException(error);
         }
-        return null;
     }
 }

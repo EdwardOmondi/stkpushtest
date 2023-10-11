@@ -24,13 +24,16 @@ public class ConfigurationController {
     ResponseEntity<Configuration> addConfiguration(@RequestBody ConfigurationDTO configurationDTO) {
         logger.info("addConfiguration:\nconfigurationDTO => " + configurationDTO);
         Configuration response = configurationService.saveConfig(configurationDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping(path = "/config")
     ResponseEntity<Configuration> updateConfiguration(@RequestBody ConfigurationDTO configurationDTO) {
         logger.info("updateConfiguration:\nconfigurationDTO => " + configurationDTO);
         Configuration response = configurationService.updateConfig(configurationDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        if (response == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
     }
 }

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "configuration")
-public class Configuration extends AbstractEntity{
+public class Configuration extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
@@ -16,6 +16,7 @@ public class Configuration extends AbstractEntity{
 
     public Configuration() {
     }
+
     @PrePersist
     @PreUpdate
     public void update() {
@@ -26,6 +27,7 @@ public class Configuration extends AbstractEntity{
             setRef(UUID.randomUUID().toString());
         }
     }
+
     @Override
     public String toString() {
         return "Configuration{" +
@@ -33,18 +35,21 @@ public class Configuration extends AbstractEntity{
                 ", value='" + value + '\'' +
                 '}';
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getValue() {
         return value;
     }
+
     public void setValue(String value) {
         this.value = value;
     }
 
-    
 }

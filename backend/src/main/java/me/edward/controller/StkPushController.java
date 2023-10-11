@@ -34,7 +34,7 @@ public class StkPushController {
     ResponseEntity<Object>  mpesaCallback(@RequestBody CallbackUrlBody body){
         logger.info("mpesaCallback:\nbody => " + body);
         Transaction response = mpesaService.saveCallback(body);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @GetMapping(path = "/transactions")
     ResponseEntity<Page<Transaction>> getTransactions(Pageable pageable) {
